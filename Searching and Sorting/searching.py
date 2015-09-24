@@ -1,5 +1,80 @@
 __author__ = 'Julian'
 
+# SEQUENTIAL SEARCH
+# Just going through every element in a list until you either find what you want or reach the end
+# Runtime is O(N)
+
+# BINARY SEARCH
+# For an ordered list, split in half and eliminate one half each time
+# Runtime is O(log(N))
+
+# FUNCTION: binarySearch()
+# PURPOSE: Implements binary search algorithm on ordered list
+# RUNTIME: O(log(N) (Logarithmic)
+# INPUTS:
+#   1) xlist, ordered list to be searched
+#   2) item, item you want to find
+# OUTPUT: found, Boolean indicating if item is in xlist
+
+# Binary searching is a "divide-and-conquer" algorithm, b/c it splits the problem (finding an item) into many
+# smaller subproblems, solves the subproblems, then re-assembles them at the end to find the solution to the
+# larger problem
+
+def binarySearch(xlist, item):
+    first = 0
+    last = len(xlist) - 1
+    found = False
+
+    while first <= last and not found:
+        midpoint = (first + last)//2
+
+        if xlist[midpoint] == item:
+            found = True
+        else:
+            if item < xlist[midpoint]:
+                last = midpoint - 1
+            else:
+                first = midpoint + 1
+
+    return found
+
+testlist = [1, 3, 18, 87, 89, 100, 1337, 200000]
+
+binarySearch(testlist, 13)  # Returns False
+binarySearch(testlist, 1337)  # Returns True
+
+
+# FUNCTION: binarySearch2()
+# PURPOSE: Implement binary search using recursive calls every time the item is not found
+# RUNTIME: O(Log(N), in theory, but using the split operator : in Python is O(k), so this is not
+# strictly true
+# INPUTS:
+#   1) xlist, ordered list to be searched
+#   2) item, item you want to find
+# OUTPUT: True if item is in xlist, otherwise False
+
+def binarySearch2(xlist, item):
+    if len(xlist) == 0:
+        return False
+    else:
+        midpoint = len(xlist)//2
+
+        if xlist[midpoint] == item:
+            return True
+        else:
+            if item < xlist[midpoint]:
+                return binarySearch2(xlist[:midpoint], item)
+            else:
+                return binarySearch2(xlist[midpoint+1:], item)
+
+
+testlist = [1, 3, 18, 87, 89, 100, 1337, 200000]
+
+# Output is same as before!
+binarySearch2(testlist, 13)  # Returns False
+binarySearch2(testlist, 1337)  # Returns True
+
+
 # HASHING
 # Allows us to build a data structure that can be searched in O(1) (constant) time!
 # Basically, the idea is to create a function (a hash function) which for each item calculate some value
@@ -126,7 +201,7 @@ class HashTable:
                 while self.slots[nextslot] != None and self.slots[nextslot] != key:
                     nextslot = self.rehash(hashvalue, len(self.slots))
 
-                if self.slot[nextslot] == None:
+                if self.slots[nextslot] == None:
                     self.slots[nextslot] = key
                     self.data[nextslot] = data
                 # Otherwise, replace whatever is in the next slot
@@ -159,23 +234,38 @@ class HashTable:
 
         return data
 
+    # Overrides [] operator to our get() function when using it to access values
     def __getitem__(self, key):
         return self.get(key)
 
+    # Overrides [] operator to our put() function when using it to assign values
     def __setitem__(self, key, data):
         return self.put(key, data)
 
 
 # Test it out!
-H = HashTable(23)
+H = HashTable(11)
+
+H[54] = "cate"
+H[26] = "doge"
+H[93] = "wow"
+H[17] = "such 1337"
+H[77] = "many h4x"
+H[31] = "GOD Over Djinn"
+H[45] = "Hofstadter's Law"
+H[50] = "Julian"
+H[29] = "Gucci"
+
+# Returns: [77, 45, None, None, 26, 93, 17, 50, 29, 31, 54]
+print(H.slots)
 
 
+# Returns: ['many h4x', "Hofstadter's Law", None, None, 'doge', 'wow',
+#           'such 1337', 'Julian', 'Gucci', 'GOD Over Djinn', 'cate']
+print(H.data)
 
+# Overwrites "GOD Over Djinn" with "bae"
+H[31] = "bae"
 
-
-
-
-
-
-
-
+print(H[31])  # Returns: bae
+print(H[99])  # Returns: None
