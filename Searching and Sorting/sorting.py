@@ -21,10 +21,10 @@ def bubbleSort(xlist):
                 xlist[i] = xlist[i+1]
                 xlist[i+1] = temp
 
-xlist = [54, 26, 93, 17, 77, 31, 44, 55, 20]
+mylist = [54, 26, 93, 17, 77, 31, 44, 55, 20]
 
-bubbleSort(xlist)
-print(xlist)  # Returns: [17, 20, 26, 31, 44, 54, 55, 77, 93]
+bubbleSort(mylist)
+print(mylist)  # Returns: [17, 20, 26, 31, 44, 54, 55, 77, 93]
 
 
 # SHORT BUBBLE SORT
@@ -48,10 +48,10 @@ def shortBubbleSort(xlist):
         n -= 1
 
 
-xlist = [20, 30, 40, 90, 50, 60, 70, 80, 100, 110]
+mylist = [20, 30, 40, 90, 50, 60, 70, 80, 100, 110]
 
-shortBubbleSort(xlist)
-print(xlist)  # Returns: [20, 30, 40, 50, 60, 70, 80, 90, 100, 110]
+shortBubbleSort(mylist)
+print(mylist)  # Returns: [20, 30, 40, 50, 60, 70, 80, 90, 100, 110]
 
 
 # SELECTION SORT
@@ -82,10 +82,10 @@ def selectionSort(xlist):
         xlist[maxPosition] = temp
 
 
-xlist = [54, 26, 93, 17, 77, 31, 44, 55, 20]
+mylist = [54, 26, 93, 17, 77, 31, 44, 55, 20]
 
-selectionSort(xlist)
-print(xlist)  # Returns: [17, 20, 26, 31, 44, 54, 55, 77, 93]
+selectionSort(mylist)
+print(mylist)  # Returns: [17, 20, 26, 31, 44, 54, 55, 77, 93]
 
 
 # INSERTION SORT
@@ -119,8 +119,13 @@ print(alist)  # Returns: [17, 20, 26, 31, 44, 54, 55, 77, 93]
 # SHELL SORT
 # Shell sort, aka "decreasing increment sort," improves on insertion sort by breaking the main list
 # into several sub-lists, each of which is sorted via insertion sort. The sub-lists are creating using
-# a "gap" number N, which chooses all items that are N units apart.
+# a "gap" number N, which chooses all items that are N units apart. Still is quadratic time.
 # You think of a standard insertion short as being a shell sort with gap number N = 1.
+
+# FUNCTION: shellSort(xlist)
+# PURPOSE: Implement shell sort algorithm
+# RUNTIME: Quadratic, O(N^2)
+# INPUTS: xlist, list to be sorted
 
 def shellSort(xlist):
     sublistcount = len(xlist)//2
@@ -158,3 +163,84 @@ print(alist)
 # After increments of size 2 the list is [20, 17, 44, 26, 54, 31, 77, 55, 93]
 # After increments of size 1 the list is [17, 20, 26, 31, 44, 54, 55, 77, 93]
 # [17, 20, 26, 31, 44, 54, 55, 77, 93]
+
+
+# MERGE SORT
+
+
+########
+# WHY DOES THIS NOT WORK????
+
+
+# FUNCTION: mergeSort(xlist)
+# PURPOSE:
+# RUNTIME: Log-Linear, O(Nlog(N))
+
+def mergeSort(xlist):
+    print("Splitting", xlist)
+
+    if len(xlist) > 1:
+        mid = len(xlist)//2
+        lefthalf = xlist[:mid]
+        righthalf = xlist[mid:]
+
+        mergeSort(lefthalf)
+        mergeSort(righthalf)
+
+        i = 0
+        j = 0
+        k = 0
+
+        while i < len(lefthalf) and j > len(righthalf):
+
+            if lefthalf[i] < righthalf[j]:
+                xlist[k] = lefthalf[i]
+                i += 1
+            else:
+                xlist[k] = righthalf[j]
+                j += 1
+
+            k += 1
+
+        while i < len(lefthalf):
+            xlist[k] = lefthalf[i]
+            i += 1
+            k += 1
+
+        while j < len(righthalf):
+            xlist[k] = righthalf[j]
+            j += 1
+            k += 1
+
+        print("Merging", xlist)
+
+mylist = [54, 26, 93, 17, 77, 31, 44, 55, 20]
+
+mergeSort(mylist)
+
+
+######################
+
+# QUICK SORT
+# Quick sort is another divide-and-conquer algorithm. Quick sort first selects a pivot value. The pivot value
+# will eventually end up in a position called the split point. Quick works by picking left and right markers and
+# then move the values to the appropriate (i.e. correctly sorted) side of the pivot value while converging to the
+# split point.
+
+
+def quickSort(xlist):
+    quickSortHelper(xlist, 0, len(xlist)-1)
+
+def quickSortHelpfer(xlist, first, last):
+
+    if first == pivot and rightmark >= leftmark:
+        rightmark -= 1
+
+    if rightmark < leftmark:
+        done = True
+    else:
+        temp = xlist[leftmark]
+
+
+
+
