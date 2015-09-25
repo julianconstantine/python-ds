@@ -227,7 +227,7 @@ mergeSort(mylist)
 # then move the values to the appropriate (i.e. correctly sorted) side of the pivot value while converging to the
 # split point.
 
-#
+
 
 def quickSort(xlist):
     quickSortHelper(xlist, 0, len(xlist)-1)
