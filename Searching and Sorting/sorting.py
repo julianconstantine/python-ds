@@ -168,30 +168,35 @@ print(alist)
 # MERGE SORT
 
 
-########
-# WHY DOES THIS NOT WORK????
-
-
 # FUNCTION: mergeSort(xlist)
-# PURPOSE:
+# PURPOSE: Implement the merge sort algorithm
 # RUNTIME: Log-Linear, O(Nlog(N))
+# INPUT: xlist, list to be sorted
 
 def mergeSort(xlist):
     print("Splitting", xlist)
 
+    # Split list and perform merge sort algorithm recursively until each sub-list is of length 1, in which
+    # case, begin merging them
+
     if len(xlist) > 1:
+        # Split (sub-)list into left and right halves
         mid = len(xlist)//2
         lefthalf = xlist[:mid]
         righthalf = xlist[mid:]
 
+        # Recursively run mergeSort() on each half
         mergeSort(lefthalf)
         mergeSort(righthalf)
 
+        # Initialize counters to zero
         i = 0
         j = 0
         k = 0
 
-        while i < len(lefthalf) and j > len(righthalf):
+        # Iterate over the now-sorted left and right halves to merge them into a single
+        # sorted super-list
+        while i < len(lefthalf) and j < len(righthalf):
 
             if lefthalf[i] < righthalf[j]:
                 xlist[k] = lefthalf[i]
@@ -202,11 +207,14 @@ def mergeSort(xlist):
 
             k += 1
 
+        # If the left list is longer than the right list, iterate over all its remaining elements
+        # to sort them into the new super-list
         while i < len(lefthalf):
             xlist[k] = lefthalf[i]
             i += 1
             k += 1
 
+        # Alternatively, do the same for the right half of the list
         while j < len(righthalf):
             xlist[k] = righthalf[j]
             j += 1
@@ -218,8 +226,6 @@ mylist = [54, 26, 93, 17, 77, 31, 44, 55, 20]
 
 mergeSort(mylist)
 
-
-######################
 
 # QUICK SORT
 # Quick sort is another divide-and-conquer algorithm. Quick sort first selects a pivot value. The pivot value
