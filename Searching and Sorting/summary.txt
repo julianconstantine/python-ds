@@ -1,0 +1,31 @@
+SUMMARY OF SEARCHING AND SORTING
+
+Search Algorithms/Methods
+1. SEQUENTIAL SEARCH
+O(N) (linear) for ordered and unordered lists
+
+2. BINARY SEARCH
+O(Nlog(N)) (log-linear) for ordered lists only
+
+3. HASH TABLE
+O(1) (constant) if implemented correctly
+
+
+Sorting Algorithms
+1. BUBBLE SORT
+O(N^2) (quadratic)
+
+2. SELECTION SORT
+O(N^2) (quadratic)
+
+3. INSERTION SORT
+O(N^2) (quadratic)
+
+4. SHELL SORT
+Between O(N) (linear) and O(N^2) (quadratic)
+
+5. MERGE SORT
+O(Nlog(N)) (log-linear)
+
+6. QUICK SORT
+O(Nlog(N)) (log-linear), but may degrade to O(N^2) (quadratic) in some cases
