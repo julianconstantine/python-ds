@@ -283,53 +283,62 @@ mylist = [87000, 1, 4, 1337, 365.25, 12, 9, 128, 256, 64, 2048]
 selectionSort12(mylist)
 
 
-# EXERCISE 14: Implement the mergeSort function without using the slice operaor
+# EXERCISE 14: Implement the mergeSort function without using the slice operator
 
-def mergeSort14(xlist):
+# UGH WHY ISN'T THIS WORKING???
+
+def mergeSort14(xlist, left=0, right=-1):
+    # Initialize right to the last index on first call to mergeSort14() function
+    if right == -1:
+        right = len(xlist) - 1
+
     print("Splitting", xlist)
 
     # Split list and perform merge sort algorithm recursively until each sub-list is of length 1, in which
     # case, begin merging them
 
-    if len(xlist) > 1:
+    if left != right:
         # Split (sub-)list into left and right halves
-        mid = len(xlist)//2
-        lefthalf = xlist[:mid]
-        righthalf = xlist[mid:]
+        mid = (left + right)//2
+        # lefthalf = xlist[:mid]
+        # righthalf = xlist[mid:]
 
         # Recursively run mergeSort() on each half
-        mergeSort(lefthalf)
-        mergeSort(righthalf)
+        mergeSort14(xlist, left, mid)
+        mergeSort14(xlist, mid+1, right)
 
         # Initialize counters to zero
         i = 0
-        j = 0
+        j = mid
         k = 0
 
         # Iterate over the now-sorted left and right halves to merge them into a single
         # sorted super-list
-        while i < len(lefthalf) and j < len(righthalf):
+        while i <= mid and j <= right:
 
-            if lefthalf[i] < righthalf[j]:
-                xlist[k] = lefthalf[i]
+            if xlist[i] < xlist[j]:
+                xlist[k], xlist[i] = xlist[i], xlist[k]
                 i += 1
             else:
-                xlist[k] = righthalf[j]
+                xlist[k], xlist[j] = xlist[j], xlist[k]
                 j += 1
 
             k += 1
 
         # If the left list is longer than the right list, iterate over all its remaining elements
         # to sort them into the new super-list
-        while i < len(lefthalf):
-            xlist[k] = lefthalf[i]
+        while i <= mid:
+            xlist[k], xlist[i] = xlist[i], xlist[k]
             i += 1
             k += 1
 
         # Alternatively, do the same for the right half of the list
-        while j < len(righthalf):
-            xlist[k] = righthalf[j]
+        while j <= right:
+            xlist[k], xlist[j] = xlist[j], xlist[k]
             j += 1
             k += 1
 
         print("Merging", xlist)
+
+mylist = [2048, 1, 4, 1337, 365.25, 12, 9, 128, 256, 64, 87000]
+mergeSort14(mylist)
